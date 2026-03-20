@@ -27,19 +27,37 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
           <div class="participants-section">
             <p class="participants-title"><strong>&#128100; Participants:</strong></p>
-            <ul class="participants-list">
-              ${details.participants.length > 0
-                ? details.participants.map(p => `
-                  <li>
-                    <span class="participant-email">${p}</span>
-                    <button class="unregister-btn" data-activity="${name}" data-email="${p}" title="Unregister participant" aria-label="Unregister ${p} from ${name}">&#x1F5D1;</button>
-                  </li>`).join("")
-                : "<li class='no-participants'>No participants yet</li>"
-              }
-            </ul>
+            <ul class="participants-list"></ul>
           </div>
         `;
 
+        const participantsList = activityCard.querySelector(".participants-list");
+        if (details.participants.length > 0) {
+          details.participants.forEach((p) => {
+            const li = document.createElement("li");
+
+            const span = document.createElement("span");
+            span.className = "participant-email";
+            span.textContent = p;
+
+            const btn = document.createElement("button");
+            btn.className = "unregister-btn";
+            btn.dataset.activity = name;
+            btn.dataset.email = p;
+            btn.title = "Unregister participant";
+            btn.innerHTML = "&#x1F5D1;";
+
+            li.appendChild(span);
+            li.appendChild(btn);
+
+            participantsList.appendChild(li);
+          });
+        } else {
+          const li = document.createElement("li");
+          li.className = "no-participants";
+          li.textContent = "No participants yet";
+          participantsList.appendChild(li);
+        }
         activitiesList.appendChild(activityCard);
 
         // Add option to select dropdown
