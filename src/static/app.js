@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? details.participants.map(p => `
                   <li>
                     <span class="participant-email">${p}</span>
-                    <button class="unregister-btn" data-activity="${name}" data-email="${p}" title="Unregister participant">&#x1F5D1;</button>
+                    <button class="unregister-btn" data-activity="${name}" data-email="${p}" title="Unregister participant" aria-label="Unregister ${p} from ${name}">&#x1F5D1;</button>
                   </li>`).join("")
                 : "<li class='no-participants'>No participants yet</li>"
               }
